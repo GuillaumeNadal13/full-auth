@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Disclosure } from '@headlessui/react';
 import { useAppSelector, useAppDispatch } from '@/redux/hooks';
 import { useLogoutMutation } from '@/redux/features/authApiSlice';
@@ -13,6 +13,7 @@ import React from "react";
 export default function Navbar() {
 	const pathname = usePathname();
 	const dispatch = useAppDispatch();
+	const router = useRouter();
 
 	const [logout] = useLogoutMutation();
 
@@ -23,6 +24,7 @@ export default function Navbar() {
 			.unwrap()
 			.then(() => {
 				dispatch(setLogout());
+				router.push('/auth/login');
 			});
 	};
 
